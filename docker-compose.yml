@@ -7,5 +7,3 @@ services:
       MONGO_INITDB_DATABASE: blog-db
     ports:
       - 27018:27017
-    volumes:
-      - ./data:/data/db

@@ -17,7 +17,7 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/blog-db'),
+            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27018/blog-db'),
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

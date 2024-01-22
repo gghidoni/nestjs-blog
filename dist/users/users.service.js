@@ -34,10 +34,10 @@ let UsersService = class UsersService {
         return newUser.save();
     }
     getUsers() {
-        return this.userModel.find();
+        return this.userModel.find().populate(['settings', 'posts']);
     }
     getUserById(id) {
-        return this.userModel.findById(id).populate('settings');
+        return this.userModel.findById(id).populate(['settings', 'posts']);
     }
     updateUser(id, updateUserDto) {
         return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });

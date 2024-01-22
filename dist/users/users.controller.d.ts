@@ -32,9 +32,9 @@ export declare class UsersController {
     createUser(createUserDto: CreateUserDto): Promise<mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & {
         _id: mongoose.Types.ObjectId;
     }>;
-    getUsers(): mongoose.Query<(mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & {
+    getUsers(): mongoose.Query<Omit<mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & {
         _id: mongoose.Types.ObjectId;
-    })[], mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & {
+    }, never>[], mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & {
         _id: mongoose.Types.ObjectId;
     }, {}, import("../schemas/User.schema").User, "find">;
     getUserById(id: string): Promise<mongoose.Document<unknown, {}, import("../schemas/User.schema").User> & import("../schemas/User.schema").User & {

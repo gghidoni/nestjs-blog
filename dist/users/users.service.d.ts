@@ -34,9 +34,9 @@ export declare class UsersService {
     createUser({ settings, ...createUserDto }: CreateUserDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getUsers(): import("mongoose").Query<(import("mongoose").Document<unknown, {}, User> & User & {
+    getUsers(): import("mongoose").Query<Omit<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
-    })[], import("mongoose").Document<unknown, {}, User> & User & {
+    }, never>[], import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }, {}, User, "find">;
     getUserById(id: string): import("mongoose").Query<import("mongoose").Document<unknown, {}, User> & User & {

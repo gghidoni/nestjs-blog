@@ -9,7 +9,7 @@ export class CreatePostDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(500)
-  contents: string;
+  content: string;
 
   @IsString()
   @IsNotEmpty()

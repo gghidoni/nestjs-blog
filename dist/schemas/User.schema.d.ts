@@ -26,7 +26,8 @@ import { UserSettings } from './UserSettings.schema';
 import mongoose from 'mongoose';
 import { Post } from './Post.schema';
 export declare class User {
-    username: string;
+    email: string;
+    hash: string;
     displayName?: string;
     avatarUrl?: string;
     settings?: UserSettings;

@@ -6,7 +6,10 @@ import { Post } from './Post.schema';
 @Schema()
 export class User {
     @Prop({ unique: true, required: true})
-    username: string;
+    email: string;
+
+    @Prop({ unique: true, required: true})
+    hash: string;
 
     @Prop({ required: false })
     displayName?: string;

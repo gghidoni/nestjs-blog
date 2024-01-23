@@ -11,6 +11,8 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const users_module_1 = require("./users/users.module");
 const posts_module_1 = require("./posts/posts.module");
+const auth_module_1 = require("./auth/auth.module");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -18,8 +20,10 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forRoot('mongodb://localhost:27018/blog-db'),
+            auth_module_1.AuthModule,
             users_module_1.UserModule,
-            posts_module_1.PostsModule
+            posts_module_1.PostsModule,
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
         ],
         controllers: [],
         providers: [],

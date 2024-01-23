@@ -19,7 +19,11 @@ exports.User = User;
 __decorate([
     (0, mongoose_1.Prop)({ unique: true, required: true }),
     __metadata("design:type", String)
-], User.prototype, "username", void 0);
+], User.prototype, "email", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ unique: true, required: true }),
+    __metadata("design:type", String)
+], User.prototype, "hash", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)

@@ -5,18 +5,23 @@ import { User } from "src/schemas/User.schema";
 import { Model, MongooseError } from "mongoose";
 import * as argon from 'argon2';
 import { error } from "console";
+import { JwtService } from "@nestjs/jwt";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class AuthService {
     constructor(
-        @InjectModel(User.name) private userModel: Model<User>
+        @InjectModel(User.name) private userModel: Model<User>,
+        private jwt: JwtService,
+        private config: ConfigService
         ) {}
 
     async signup(dto: AuthDto) {
         try {
             const hash = await argon.hash(dto.password);
             const user = await new this.userModel({ email: dto.email, hash}).save();
-            return user;
+            //return this.signToken(user.id, user.email);
+            return this.signToken(user._id.toString(), user.email);
         } catch (error) {
             console.log(error)
             if (error.code) {
@@ -40,6 +45,20 @@ export class AuthService {
             throw new ForbiddenException('Credentials incorrect.');
        
         //return this.signToken(user.id, user.email);
-        return user;
+        return this.signToken(user._id.toString(), user.email);
+    }
+
+    async signToken(userId: string, email: string): Promise<{ access_token: string }> {
+        const payload = {
+            sub: userId,
+            email
+        }
+        const token = await this.jwt.signAsync(payload, {
+            expiresIn: '15m',
+            secret: this.config.get('JWT_SECRET')
+        });
+        return {
+            access_token: token
+        }
     }
 }

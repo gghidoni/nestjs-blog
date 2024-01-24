@@ -21,31 +21,19 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
+/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { UsersService } from "./users.service";
-import { CreateUserDto } from "./dto/CreateUser.dto";
-import mongoose from "mongoose";
-import { UpdateUserDto } from "./dto/UpdateUser.dto";
-import { User } from "src/schemas/User.schema";
-export declare class UsersController {
+import { Strategy } from 'passport-jwt';
+import { UsersService } from "src/users/users.service";
+declare const JwtStrategy_base: new (...args: any[]) => Strategy;
+export declare class JwtStrategy extends JwtStrategy_base {
     private usersService;
     constructor(usersService: UsersService);
-    createUser(createUserDto: CreateUserDto): Promise<mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }>;
-    getUsers(): mongoose.Query<Omit<mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }, never>[], mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }, {}, User, "find">;
-    getMe(user: User): User;
-    getUserById(id: string): Promise<mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }>;
-    upddateUser(id: string, updateUserDto: UpdateUserDto): Promise<mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }>;
-    deleteUser(id: string): Promise<mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
+    validate(payload: {
+        sub: string;
+        email: string;
+    }): Promise<import("mongoose").Document<unknown, {}, import("../../schemas/User.schema").User> & import("../../schemas/User.schema").User & {
+        _id: import("mongoose").Types.ObjectId;
     }>;
 }
+export {};

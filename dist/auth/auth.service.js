@@ -19,15 +19,19 @@ const User_schema_1 = require("../schemas/User.schema");
 const mongoose_2 = require("mongoose");
 const argon = require("argon2");
 const console_1 = require("console");
+const jwt_1 = require("@nestjs/jwt");
+const config_1 = require("@nestjs/config");
 let AuthService = class AuthService {
-    constructor(userModel) {
+    constructor(userModel, jwt, config) {
         this.userModel = userModel;
+        this.jwt = jwt;
+        this.config = config;
     }
     async signup(dto) {
         try {
             const hash = await argon.hash(dto.password);
             const user = await new this.userModel({ email: dto.email, hash }).save();
-            return user;
+            return this.signToken(user._id.toString(), user.email);
         }
         catch (error) {
             console.log(error);
@@ -46,13 +50,28 @@ let AuthService = class AuthService {
         const pwMatches = await argon.verify(user.hash, dto.password);
         if (!pwMatches)
             throw new common_1.ForbiddenException('Credentials incorrect.');
-        return user;
+        return this.signToken(user._id.toString(), user.email);
+    }
+    async signToken(userId, email) {
+        const payload = {
+            sub: userId,
+            email
+        };
+        const token = await this.jwt.signAsync(payload, {
+            expiresIn: '15m',
+            secret: this.config.get('JWT_SECRET')
+        });
+        return {
+            access_token: token
+        };
     }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(User_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        jwt_1.JwtService,
+        config_1.ConfigService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

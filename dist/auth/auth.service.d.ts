@@ -25,13 +25,20 @@
 import { AuthDto } from "./dto";
 import { User } from "src/schemas/User.schema";
 import { Model } from "mongoose";
+import { JwtService } from "@nestjs/jwt";
+import { ConfigService } from "@nestjs/config";
 export declare class AuthService {
     private userModel;
-    constructor(userModel: Model<User>);
-    signup(dto: AuthDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
-        _id: import("mongoose").Types.ObjectId;
+    private jwt;
+    private config;
+    constructor(userModel: Model<User>, jwt: JwtService, config: ConfigService);
+    signup(dto: AuthDto): Promise<{
+        access_token: string;
     }>;
-    signin(dto: AuthDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
-        _id: import("mongoose").Types.ObjectId;
+    signin(dto: AuthDto): Promise<{
+        access_token: string;
+    }>;
+    signToken(userId: string, email: string): Promise<{
+        access_token: string;
     }>;
 }

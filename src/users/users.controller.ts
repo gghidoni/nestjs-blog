@@ -1,8 +1,13 @@
-import { Body, Controller, Delete, Get, HttpException, Param, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, Param, Patch, Post, Req, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/CreateUser.dto";
 import mongoose from "mongoose";
 import { UpdateUserDto } from "./dto/UpdateUser.dto";
+import { AuthGuard } from "@nestjs/passport";
+import { Request } from "express";
+import { JwtGuard } from "src/auth/guard";
+import { GetUser } from "src/auth/decorator";
+import { User } from "src/schemas/User.schema";
 
 @Controller('users')
 export class UsersController {
@@ -17,6 +22,12 @@ export class UsersController {
     @Get()
     getUsers() {
         return this.usersService.getUsers();
+    }
+
+    @UseGuards(JwtGuard)
+    @Get('me')
+    getMe(@GetUser() user: User) {
+        return user;
     }
 
     @Get(':id')

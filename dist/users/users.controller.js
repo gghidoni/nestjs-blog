@@ -18,6 +18,9 @@ const users_service_1 = require("./users.service");
 const CreateUser_dto_1 = require("./dto/CreateUser.dto");
 const mongoose_1 = require("mongoose");
 const UpdateUser_dto_1 = require("./dto/UpdateUser.dto");
+const guard_1 = require("../auth/guard");
+const decorator_1 = require("../auth/decorator");
+const User_schema_1 = require("../schemas/User.schema");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -27,6 +30,9 @@ let UsersController = class UsersController {
     }
     getUsers() {
         return this.usersService.getUsers();
+    }
+    getMe(user) {
+        return user;
     }
     async getUserById(id) {
         const isValid = mongoose_1.default.Types.ObjectId.isValid(id);
@@ -71,6 +77,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "getUsers", null);
+__decorate([
+    (0, common_1.UseGuards)(guard_1.JwtGuard),
+    (0, common_1.Get)('me'),
+    __param(0, (0, decorator_1.GetUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [User_schema_1.User]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "getMe", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),

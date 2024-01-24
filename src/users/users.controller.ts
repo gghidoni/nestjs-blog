@@ -8,6 +8,7 @@ import { Request } from "express";
 import { JwtGuard } from "src/auth/guard";
 import { GetUser } from "src/auth/decorator";
 import { User } from "src/schemas/User.schema";
+import { ValidateObjectId } from "src/auth/decorator/valid-id.decorator";
 
 @Controller('users')
 export class UsersController {
@@ -24,6 +25,7 @@ export class UsersController {
         return this.usersService.getUsers();
     }
 
+    // Esempio di dove vengono utilizzati una guardia custom e un decoratore custom
     @UseGuards(JwtGuard)
     @Get('me')
     getMe(@GetUser() user: User) {
@@ -31,9 +33,7 @@ export class UsersController {
     }
 
     @Get(':id')
-    async getUserById(@Param('id') id: string) {
-        const isValid = mongoose.Types.ObjectId.isValid(id);
-        if (!isValid) throw new HttpException('User not found', 404);
+    async getUserById(@ValidateObjectId() id: string) {
         const findUser = await this.usersService.getUserById(id);
         if (!findUser) throw new HttpException('User not found', 404);
         return findUser;  

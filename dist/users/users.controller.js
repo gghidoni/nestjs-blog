@@ -21,6 +21,7 @@ const UpdateUser_dto_1 = require("./dto/UpdateUser.dto");
 const guard_1 = require("../auth/guard");
 const decorator_1 = require("../auth/decorator");
 const User_schema_1 = require("../schemas/User.schema");
+const valid_id_decorator_1 = require("../auth/decorator/valid-id.decorator");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -35,9 +36,6 @@ let UsersController = class UsersController {
         return user;
     }
     async getUserById(id) {
-        const isValid = mongoose_1.default.Types.ObjectId.isValid(id);
-        if (!isValid)
-            throw new common_1.HttpException('User not found', 404);
         const findUser = await this.usersService.getUserById(id);
         if (!findUser)
             throw new common_1.HttpException('User not found', 404);
@@ -87,7 +85,7 @@ __decorate([
 ], UsersController.prototype, "getMe", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, valid_id_decorator_1.ValidateObjectId)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

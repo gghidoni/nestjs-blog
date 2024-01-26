@@ -15,7 +15,7 @@ const User_schema_1 = require("../schemas/User.schema");
 const UserSettings_schema_1 = require("../schemas/UserSettings.schema");
 const jwt_1 = require("@nestjs/jwt");
 const strategy_1 = require("./strategy");
-const users_service_1 = require("../users/users.service");
+const users_module_1 = require("../users/users.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -32,10 +32,11 @@ exports.AuthModule = AuthModule = __decorate([
                     schema: UserSettings_schema_1.UserSettingsSchema
                 }
             ]),
+            users_module_1.UserModule,
             jwt_1.JwtModule.register({})
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, strategy_1.JwtStrategy, users_service_1.UsersService],
+        providers: [auth_service_1.AuthService, strategy_1.JwtStrategy],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

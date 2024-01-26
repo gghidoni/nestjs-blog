@@ -10,7 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserDto = void 0;
+const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
+const UserSettings_dto_1 = require("../../user-settings/dto/UserSettings.dto");
 class UpdateUserDto {
 }
 exports.UpdateUserDto = UpdateUserDto;
@@ -24,4 +26,11 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "avatarUrl", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.ValidateNested)(),
+    (0, class_transformer_1.Type)(() => UserSettings_dto_1.UserSettingsDto),
+    __metadata("design:type", UserSettings_dto_1.UserSettingsDto)
+], UpdateUserDto.prototype, "settings", void 0);
+;
 //# sourceMappingURL=UpdateUser.dto.js.map

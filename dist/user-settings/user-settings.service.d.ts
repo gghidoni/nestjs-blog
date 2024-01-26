@@ -22,28 +22,12 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { UsersService } from "./users.service";
-import { CreateUserDto } from "./dto/CreateUser.dto";
-import mongoose from "mongoose";
-import { UpdateUserDto } from "./dto/UpdateUser.dto";
-import { User } from "src/schemas/User.schema";
-export declare class UsersController {
-    private usersService;
-    constructor(usersService: UsersService);
-    createUser(createUserDto: CreateUserDto): Promise<void>;
-    getUsers(): mongoose.Query<Omit<mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }, never>[], mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }, {}, User, "find">;
-    getMe(user: User): User;
-    getUserById(id: string): Promise<mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }>;
-    upddateUser(id: string, updateUserDto: UpdateUserDto): Promise<mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }>;
-    deleteUser(userId: string): Promise<mongoose.Document<unknown, {}, User> & User & {
-        _id: mongoose.Types.ObjectId;
-    }>;
+import { User } from 'src/schemas/User.schema';
+import { Model } from 'mongoose';
+import { UserSettings } from 'src/schemas/UserSettings.schema';
+export declare class UserSettingsService {
+    private userModel;
+    private userSettingsModel;
+    constructor(userModel: Model<User>, userSettingsModel: Model<UserSettings>);
+    getUserSettingsByUserId(userId: string): string;
 }

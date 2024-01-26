@@ -6,18 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModule = void 0;
+exports.UserSettingsModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const User_schema_1 = require("../schemas/User.schema");
-const users_service_1 = require("./users.service");
-const users_controller_1 = require("./users.controller");
 const UserSettings_schema_1 = require("../schemas/UserSettings.schema");
-const user_settings_module_1 = require("../user-settings/user-settings.module");
-let UserModule = class UserModule {
+const user_settings_controller_1 = require("./user-settings.controller");
+const user_settings_service_1 = require("./user-settings.service");
+let UserSettingsModule = class UserSettingsModule {
 };
-exports.UserModule = UserModule;
-exports.UserModule = UserModule = __decorate([
+exports.UserSettingsModule = UserSettingsModule;
+exports.UserSettingsModule = UserSettingsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([
@@ -30,11 +29,10 @@ exports.UserModule = UserModule = __decorate([
                     schema: UserSettings_schema_1.UserSettingsSchema
                 }
             ]),
-            user_settings_module_1.UserSettingsModule
         ],
-        controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService],
-        exports: [users_service_1.UsersService]
+        controllers: [user_settings_controller_1.UserSettingsController],
+        providers: [user_settings_service_1.UserSettingsService],
+        exports: [user_settings_service_1.UserSettingsService]
     })
-], UserModule);
-//# sourceMappingURL=users.module.js.map
+], UserSettingsModule);
+//# sourceMappingURL=user-settings.module.js.map

@@ -31,9 +31,7 @@ export declare class UsersService {
     private userModel;
     private userSettingsModel;
     constructor(userModel: Model<User>, userSettingsModel: Model<UserSettings>);
-    createUser({ settings, ...createUserDto }: CreateUserDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
+    createUser({ settings, ...createUserDto }: CreateUserDto): Promise<void>;
     getUsers(): import("mongoose").Query<Omit<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }, never>[], import("mongoose").Document<unknown, {}, User> & User & {
@@ -44,11 +42,9 @@ export declare class UsersService {
     }, import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }, {}, User, "findOne">;
-    updateUser(id: string, updateUserDto: UpdateUserDto): import("mongoose").Query<import("mongoose").Document<unknown, {}, User> & User & {
+    updateUser(userId: string, { settings, ...updateUserDto }: UpdateUserDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
-    }, import("mongoose").Document<unknown, {}, User> & User & {
-        _id: import("mongoose").Types.ObjectId;
-    }, {}, User, "findOneAndUpdate">;
+    }>;
     deleteUser(id: string): import("mongoose").Query<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }, import("mongoose").Document<unknown, {}, User> & User & {

@@ -4,6 +4,8 @@ import { User, UserSchema } from "src/schemas/User.schema";
 import { UsersService } from "./users.service";
 import { UsersController } from "./users.controller";
 import { UserSettings, UserSettingsSchema } from "src/schemas/UserSettings.schema";
+import { UserSettingsService } from "src/user-settings/user-settings.service";
+import { UserSettingsModule } from "src/user-settings/user-settings.module";
 
 @Module({
     imports: [
@@ -17,8 +19,10 @@ import { UserSettings, UserSettingsSchema } from "src/schemas/UserSettings.schem
                 schema: UserSettingsSchema
             }
         ]),
+        UserSettingsModule
     ],
     controllers: [UsersController],
-    providers: [UsersService]
+    providers: [UsersService],
+    exports: [UsersService]
 })
 export class UserModule {}

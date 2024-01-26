@@ -16,7 +16,6 @@ exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const CreateUser_dto_1 = require("./dto/CreateUser.dto");
-const mongoose_1 = require("mongoose");
 const UpdateUser_dto_1 = require("./dto/UpdateUser.dto");
 const guard_1 = require("../auth/guard");
 const decorator_1 = require("../auth/decorator");
@@ -42,19 +41,10 @@ let UsersController = class UsersController {
         return findUser;
     }
     async upddateUser(id, updateUserDto) {
-        const isValid = mongoose_1.default.Types.ObjectId.isValid(id);
-        if (!isValid)
-            throw new common_1.HttpException('Invalid ID', 400);
-        const updatedUser = await this.usersService.updateUser(id, updateUserDto);
-        if (!updatedUser)
-            throw new common_1.HttpException('User not found', 404);
-        return updatedUser;
+        return this.usersService.updateUser(id, updateUserDto);
     }
-    async deleteUser(id) {
-        const isValid = mongoose_1.default.Types.ObjectId.isValid(id);
-        if (!isValid)
-            throw new common_1.HttpException('Invalid ID', 400);
-        const deletedUser = await this.usersService.deleteUser(id);
+    async deleteUser(userId) {
+        const deletedUser = await this.usersService.deleteUser(userId);
         if (!deletedUser)
             throw new common_1.HttpException('User not found', 404);
         return deletedUser;
@@ -93,7 +83,7 @@ __decorate([
 __decorate([
     (0, common_1.Patch)(':id'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, valid_id_decorator_1.ValidateObjectId)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, UpdateUser_dto_1.UpdateUserDto]),
@@ -101,7 +91,7 @@ __decorate([
 ], UsersController.prototype, "upddateUser", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, valid_id_decorator_1.ValidateObjectId)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

@@ -12,56 +12,27 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = void 0;
+exports.UserSettingsService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const mongoose_2 = require("mongoose");
 const User_schema_1 = require("../schemas/User.schema");
+const mongoose_2 = require("mongoose");
 const UserSettings_schema_1 = require("../schemas/UserSettings.schema");
-let UsersService = class UsersService {
+let UserSettingsService = class UserSettingsService {
     constructor(userModel, userSettingsModel) {
         this.userModel = userModel;
         this.userSettingsModel = userSettingsModel;
     }
-    async createUser({ settings, ...createUserDto }) {
-    }
-    getUsers() {
-        return this.userModel.find().populate(['settings', 'posts']);
-    }
-    getUserById(id) {
-        return this.userModel.findById(id).populate(['settings', 'posts']);
-    }
-    async updateUser(userId, { settings, ...updateUserDto }) {
-        const user = await this.userModel.findById(userId);
-        if (!user)
-            throw new common_1.HttpException('User not found', 404);
-        if (settings) {
-            let userSettings = await this.userSettingsModel.findById(user.settings);
-            if (!userSettings) {
-                userSettings = new this.userSettingsModel(settings);
-                await userSettings.save();
-                user.settings = userSettings;
-                await user.save();
-            }
-            else {
-                userSettings.set(settings);
-                await userSettings.save();
-            }
-        }
-        user.set(updateUserDto);
-        await user.save();
-        return user;
-    }
-    deleteUser(id) {
-        return this.userModel.findByIdAndDelete(id);
+    getUserSettingsByUserId(userId) {
+        return userId;
     }
 };
-exports.UsersService = UsersService;
-exports.UsersService = UsersService = __decorate([
+exports.UserSettingsService = UserSettingsService;
+exports.UserSettingsService = UserSettingsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(User_schema_1.User.name)),
     __param(1, (0, mongoose_1.InjectModel)(UserSettings_schema_1.UserSettings.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
         mongoose_2.Model])
-], UsersService);
-//# sourceMappingURL=users.service.js.map
+], UserSettingsService);
+//# sourceMappingURL=user-settings.service.js.map

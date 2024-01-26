@@ -9,29 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthDto = void 0;
+exports.CreateUserSettingsDto = void 0;
 const class_validator_1 = require("class-validator");
-class AuthDto {
+class CreateUserSettingsDto {
 }
-exports.AuthDto = AuthDto;
+exports.CreateUserSettingsDto = CreateUserSettingsDto;
 __decorate([
-    (0, class_validator_1.IsEmail)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], AuthDto.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], AuthDto.prototype, "password", void 0);
-__decorate([
+    (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], AuthDto.prototype, "displayName", void 0);
+    __metadata("design:type", Boolean)
+], CreateUserSettingsDto.prototype, "receiveNotifications", void 0);
 __decorate([
+    (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], AuthDto.prototype, "avatarUrl", void 0);
-//# sourceMappingURL=auth.dto.js.map
+    __metadata("design:type", Boolean)
+], CreateUserSettingsDto.prototype, "receiveEmails", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], CreateUserSettingsDto.prototype, "receiveSMS", void 0);
+//# sourceMappingURL=CrerateUserSettings.dto.js.map

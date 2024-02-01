@@ -14,13 +14,13 @@ import { ValidateObjectId } from "src/auth/decorator/valid-id.decorator";
 export class UsersController {
     constructor(private usersService: UsersService) {}
 
-    @Post()
+    @Post('')
     @UsePipes(new ValidationPipe())
     createUser(@Body() createUserDto: CreateUserDto) {
         return this.usersService.createUser(createUserDto);
     }
 
-    @Get()
+    @Get('')
     getUsers() {
         return this.usersService.getUsers();
     }

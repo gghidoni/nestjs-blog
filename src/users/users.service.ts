@@ -9,6 +9,7 @@ import { UserSettingsService } from "src/user-settings/user-settings.service";
 
 @Injectable()
 export class UsersService {
+    user;
     constructor(
         @InjectModel(User.name) private userModel: Model<User>, 
         @InjectModel(UserSettings.name) private userSettingsModel: Model<UserSettings>,
@@ -26,7 +27,7 @@ export class UsersService {
     }
 
     getUsers() {
-        return this.userModel.find().populate(['settings', 'posts']);
+        return this.userModel.find({}, { hash: false }).populate(['settings', 'posts']);
     }
 
     getUserById(id: string) {

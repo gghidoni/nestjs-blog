@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, Param, Patch, Post, Req, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, Logger, NotFoundException, Param, Patch, Post, Req, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/CreateUser.dto";
 import mongoose from "mongoose";
@@ -9,9 +9,13 @@ import { JwtGuard } from "src/auth/guard";
 import { GetUser } from "src/auth/decorator";
 import { User } from "src/schemas/User.schema";
 import { ValidateObjectId } from "src/auth/decorator/valid-id.decorator";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller('users')
-export class UsersController {
+@ApiTags('users')
+export class UserController {
+    logger: Logger = new Logger(UserController.name);
+    
     constructor(private usersService: UsersService) {}
 
     @Post('')
@@ -35,7 +39,7 @@ export class UsersController {
     @Get(':id')
     async getUserById(@ValidateObjectId() id: string) {
         const findUser = await this.usersService.getUserById(id);
-        if (!findUser) throw new HttpException('User not found', 404);
+        if (!findUser) throw new NotFoundException(); 
         return findUser;  
     }
 

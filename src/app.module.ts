@@ -5,6 +5,7 @@ import { PostsModule } from './posts/posts.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService} from '@nestjs/config';
 import { UserSettingsModule } from './user-settings/user-settings.module';
+import { HouseModule } from './house/house.module';
 
  
 @Module({
@@ -22,6 +23,7 @@ import { UserSettingsModule } from './user-settings/user-settings.module';
     AuthModule,
     UserModule,
     PostsModule,
+    HouseModule
   ],
   controllers: [],
   providers: [],

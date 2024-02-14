@@ -18,11 +18,11 @@ export class UserController {
     
     constructor(private usersService: UsersService) {}
 
-    @Post('')
-    @UsePipes(new ValidationPipe())
-    createUser(@Body() createUserDto: CreateUserDto) {
-        return this.usersService.createUser(createUserDto);
-    }
+    // @Post('')
+    // @UsePipes(new ValidationPipe())
+    // createUser(@Body() createUserDto: CreateUserDto) {
+    //     return this.usersService.createUser(createUserDto);
+    // }
 
     @Get('')
     getUsers() {

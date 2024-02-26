@@ -10,8 +10,18 @@ export class HouseService {
         @InjectModel(House.name) private houseModel: Model<House>,
     ) {}
 
+    async getHouses() {
+        const houses = await this.houseModel.find();
+        return houses;
+    }
+
     async store(dto: HouseDto) {
         const house = await this.houseModel.create(dto);
+        return house;
+    }
+
+    async update(id: string, dto: HouseDto) {
+        const house = await this.houseModel.findByIdAndUpdate(id, dto);
         return house;
     }
 }

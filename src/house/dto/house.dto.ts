@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
+import { HouseStatus } from "../enums/house.status";
 
 class HouseAddresDto {
     @ApiProperty({ 
@@ -89,13 +90,11 @@ export class HouseDto {
 
     @ApiProperty({ 
         required: true, 
-        type: String, 
-        enum: ['SALE', 'RENT', 'PRIVATE'],
-        default: 'SALE', 
+        enum: HouseStatus,  
         description: 'House status' 
     })
     @IsNotEmpty()
-    status: string;
+    status: HouseStatus;
 
     @ApiProperty({ 
         required: true, 

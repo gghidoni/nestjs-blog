@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { HouseStatus } from "src/house/enums/house.status";
+
 
 @Schema()
 export class House {
@@ -11,12 +13,8 @@ export class House {
     @Prop()
     price: number;
 
-    @Prop({required: true, type: String, enum: ['SALE', 'RENT', 'PRIVATE']})
-    status: {
-        type: String,
-        enum: ['SALE', 'RENT', 'PRIVATE'],
-        default: 'SALE'
-    }
+    @Prop({required: true})
+    status: HouseStatus
 
     @Prop({ 
         required: true,

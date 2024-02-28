@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumber, IsObject, IsString } from "class-validator";
 import { HouseStatus } from "../enums/house.status";
 
 class HouseAddresDto {
@@ -8,6 +8,7 @@ class HouseAddresDto {
         type: String, 
         description: 'House street' 
     })
+    @IsString()
     @IsNotEmpty()
     street?: string;
 
@@ -16,6 +17,7 @@ class HouseAddresDto {
         type: String, 
         description: 'House city' 
     })
+    @IsString()
     @IsNotEmpty()
     city: string;
 
@@ -32,6 +34,7 @@ class HouseAddresDto {
         type: String, 
         description: 'House zipcode' 
     })
+    @IsString()
     @IsNotEmpty()
     zipcode?: string;
 }
@@ -42,6 +45,7 @@ class HouseFeaturesDto {
         type: Number, 
         description: 'House bed' 
     })
+    @IsNumber()
     @IsNotEmpty()
     bed?: number;
 
@@ -50,6 +54,7 @@ class HouseFeaturesDto {
         type: Number, 
         description: 'House bath' 
     })
+    @IsNumber()
     @IsNotEmpty()
     bath?: number;
 
@@ -58,6 +63,7 @@ class HouseFeaturesDto {
         type: Number, 
         description: 'House size' 
     })
+    @IsNumber()
     @IsNotEmpty()
     size?: number;
 }
@@ -69,6 +75,7 @@ export class HouseDto {
         type: String, 
         description: 'House name' 
     })
+    @IsString()
     @IsNotEmpty()
     name: string;
 
@@ -77,6 +84,7 @@ export class HouseDto {
         type: String, 
         description: 'House description' 
     })
+    @IsString()
     @IsNotEmpty()
     description: string;
 
@@ -85,6 +93,7 @@ export class HouseDto {
         type: Number, 
         description: 'House price' 
     })
+    @IsNumber()
     @IsNotEmpty()
     price: number;
 
@@ -93,6 +102,7 @@ export class HouseDto {
         enum: HouseStatus,  
         description: 'House status' 
     })
+    @IsEnum(HouseStatus)
     @IsNotEmpty()
     status: HouseStatus;
 

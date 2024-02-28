@@ -15,13 +15,18 @@ export class HouseService {
         return houses;
     }
 
+    async getHouseById(id: string) {
+        const house = await this.houseModel.findById(id);
+        return house;
+    }
+
     async store(dto: HouseDto) {
         const house = await this.houseModel.create(dto);
         return house;
     }
 
     async update(id: string, dto: HouseDto) {
-        const house = await this.houseModel.findByIdAndUpdate(id, dto);
+        const house = await this.houseModel.findByIdAndUpdate(id, dto, { new: true });
         return house;
     }
 }

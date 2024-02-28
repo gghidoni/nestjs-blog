@@ -9,7 +9,7 @@ import { JwtGuard } from "src/auth/guard";
 import { GetUser } from "src/auth/decorator";
 import { User } from "src/schemas/User.schema";
 import { ValidateObjectId } from "src/auth/decorator/valid-id.decorator";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiParam, ApiTags } from "@nestjs/swagger";
 
 @Controller('users')
 @ApiTags('users')
@@ -37,6 +37,7 @@ export class UserController {
     }
 
     @Get(':id')
+    @ApiParam({ name: 'id', type: String, required: true, description: 'User ID' })
     async getUserById(@ValidateObjectId() id: string) {
         const findUser = await this.usersService.getUserById(id);
         if (!findUser) throw new NotFoundException(); 
@@ -45,11 +46,13 @@ export class UserController {
 
     @Patch(':id')
     @UsePipes(new ValidationPipe())
+    @ApiParam({ name: 'id', type: String, required: true, description: 'User ID' })
     async upddateUser(@ValidateObjectId() id: string, @Body() updateUserDto: UpdateUserDto) {
         return this.usersService.updateUser(id, updateUserDto);
     }
 
     @Delete(':id')
+    @ApiParam({ name: 'id', type: String, required: true, description: 'User ID' })
     async deleteUser(@ValidateObjectId('id') userId: string) {
         const deletedUser = await this.usersService.deleteUser(userId);
         if (!deletedUser) throw new HttpException('User not found', 404);

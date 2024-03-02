@@ -31,7 +31,7 @@ export class UsersService {
     }
 
     getUserById(id: string) {
-        return this.userModel.findById(id).populate(['settings', 'posts']);
+        return this.userModel.findById(id, { hash: false }).populate(['settings', 'posts']);
     }
 
     async updateUser(userId: string, { settings, ...updateUserDto}: UpdateUserDto) {

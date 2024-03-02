@@ -29,4 +29,9 @@ export class HouseService {
         const house = await this.houseModel.findByIdAndUpdate(id, dto, { new: true });
         return house;
     }
+
+    async delete(id: string) {
+        const house = await this.houseModel.findByIdAndDelete(id);
+        return house;
+    }
 }

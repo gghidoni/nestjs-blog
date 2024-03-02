@@ -12,9 +12,9 @@ import { CreatePostDto } from './dtos/CreatePost.dto';
 export class PostsController {
   constructor(private postsService: PostsService) {}
 
-  @Post()
-  @UsePipes(new ValidationPipe())
-  createPost(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.createPost(createPostDto);
-  }
+//  @Post()
+//  @UsePipes(new ValidationPipe())
+//  createPost(@Body() createPostDto: CreatePostDto) {
+//    return this.postsService.createPost(createPostDto);
+//  }
 }
